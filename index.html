@@ -65,6 +65,9 @@
     .burger.open span:nth-child(2){opacity:0;}
     .burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
 
+    /* Mobile controls wrapper (lang button + burger) */
+    .nav-right{display:flex;align-items:center;gap:10px;}
+
     /* ===== HERO ===== */
     .hero{position:relative;isolation:isolate;min-height:92vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:120px 40px 100px;overflow:hidden;background:linear-gradient(135deg,#0d0f1c 0%,#141a30 45%,#0f3460 100%);}
     .hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-3;opacity:.5;}
@@ -261,6 +264,7 @@
     margin-top: 45px;
     overflow: hidden;
     position: relative;
+    direction: ltr;
     -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 15%, #000 85%, transparent 100%);
     mask-image: linear-gradient(90deg, transparent 0%, #000 15%, #000 85%, transparent 100%);
 }
@@ -272,6 +276,7 @@
     animation: marquee 35s linear infinite;
     align-items: center;
     padding: 20px 0;
+    direction: ltr;
 }
 
 .marquee:hover .marquee-track {
@@ -413,12 +418,60 @@
         .contact-form{padding:24px;}
         .hero p.lead{font-size:15px;}
         .about-img img{width:100%;height:275px;}
+        #langToggleBtn{padding:7px 12px;font-size:12.5px;}
+        #langToggleBtn .lang-name{display:none;}
     }
     @media (max-width:380px){
         .logo-text{font-size:12px;max-width:170px;}
         .logo img{height:28px;}
         nav{padding:12px 14px;}
     }
+
+
+/* Google Top Banner Hide Karein (Taake header ka design kharab na ho) */
+.goog-te-banner-frame, 
+.skiptranslate, 
+#goog-gt-tt {
+    display: none !important;
+}
+/* Language Switcher Button Styling */
+#langToggleBtn {
+    background: #ffffff;
+    border: 1px solid var(--gold, #d4af37);
+    color: #111111;
+    padding: 8px 16px;
+    border-radius: 24px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+#langToggleBtn:hover {
+    background: var(--gold, #d4af37);
+    color: #ffffff;
+    transform: translateY(-2px);
+}
+
+/* RTL Layout Automatic Alignment for Arabic */
+[dir="rtl"] {
+    text-align: right;
+}
+
+[dir="rtl"] .arrow {
+    display: inline-block;
+    transform: rotate(180deg);
+}
+
+/* Keep marquee always left-to-right regardless of page direction */
+[dir="rtl"] .marquee,
+[dir="rtl"] .marquee-track{
+    direction: ltr;
+}
 </style>
 </head>
 <body>
@@ -438,6 +491,7 @@
         <img src="assets/logo.png" alt="Arabian Talents Group Logo" onerror="this.style.display='none'">
         <div class="logo-text">Arabian Talents Group <span>MANPOWER SOLUTIONS</span></div>
     </div>
+
     <ul id="navLinks">
         <li><a href="#home">Home</a></li>
         <li><a href="#services">Services</a></li>
@@ -446,7 +500,18 @@
         <li><a href="#team">Team</a></li>
         <li><a href="#contact" class="nav-cta">Contact Us</a></li>
     </ul>
-    <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+
+    <!-- Hidden GTranslate Container -->
+    <div id="gtranslate_wrapper" style="display:none;"></div>
+
+    <!-- Language button + burger stay together, always visible (not inside the sliding mobile menu) -->
+    <div class="nav-right">
+        <button id="langToggleBtn" onclick="switchLanguage()">
+            <span class="lang-flag">🇸🇦</span>
+            <span class="lang-name">العربية</span>
+        </button>
+        <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
 </nav>
 
 <!-- HERO -->
@@ -753,8 +818,8 @@
         <p class="section-label" style="justify-content:center;">Trusted By</p>
         <h2>Our Valued Clients</h2>
     </div>
-    <div class="marquee">
-        <div class="marquee-track" id="marqueeTrack">
+    <div class="marquee" dir="ltr">
+        <div class="marquee-track" id="marqueeTrack" dir="ltr">
             <!-- First Set -->
             <div class="client-logo"><img src="assets/Mfaheem-Al-Emar" alt="Mfaheem Al-Emar" onerror="this.style.display='none'"></div>
             <div class="client-logo"><img src="assets/Drilling-and-Exploration.jpeg" alt="Drilling & Exploration" onerror="this.style.display='none'"></div>
@@ -765,6 +830,7 @@
             <div class="client-logo"><img src="assets/Binladen1.png" alt="Binladen Group" onerror="this.style.display='none'"></div>
             <div class="client-logo"><img src="assets/FBH-Group.webp" alt="FBH Group" onerror="this.style.display='none'"></div>
             <div class="client-logo"><img src="assets/Almays-Catering-Solution.webp" alt="Almays Catering" onerror="this.style.display='none'"></div>
+            <div class="client-logo"><img src="assets/hyundai-logo.png" alt="Hyundai" onerror="this.style.display='none'"></div>
         </div>
     </div>
 </section>
@@ -871,6 +937,73 @@
 </footer>
 
 <button id="toTop" aria-label="Scroll to top"><svg width="18" height="18" viewBox="0 0 24 24" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M18 15l-6-6-6 6"/></svg></button>
+
+<!-- Google Translate Engine Loader -->
+<script type="text/javascript">
+function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+        pageLanguage: 'en',
+        includedLanguages: 'en,ar',
+        autoDisplay: false
+    }, 'gtranslate_wrapper');
+}
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<!-- jQuery / JS Language Switch Logic -->
+<script>
+function switchLanguage() {
+    var $select = document.querySelector('#gtranslate_wrapper select');
+    var btnText = document.querySelector('.lang-name');
+    var btnFlag = document.querySelector('.lang-flag');
+    var htmlTag = document.documentElement;
+
+    if (!$select) {
+        console.log("Translation engine loading...");
+        return;
+    }
+
+    // Currently English? Switch to Arabic
+    if (htmlTag.getAttribute('dir') !== 'rtl') {
+        $select.value = 'ar';
+        $select.dispatchEvent(new Event('change'));
+        
+        // Page layout ko RTL (Arabic) karein
+        htmlTag.setAttribute('dir', 'rtl');
+        htmlTag.setAttribute('lang', 'ar');
+        
+        // Button Text update karein
+        btnText.innerText = 'English';
+        btnFlag.innerText = '🇬🇧';
+        
+        localStorage.setItem('selectedLang', 'ar');
+    } else {
+        // Currently Arabic? Switch back to English
+        $select.value = 'en';
+        $select.dispatchEvent(new Event('change'));
+        
+        // Page layout ko LTR (English) karein
+        htmlTag.setAttribute('dir', 'ltr');
+        htmlTag.setAttribute('lang', 'en');
+        
+        // Button Text update karein
+        btnText.innerText = 'العربية';
+        btnFlag.innerText = '🇸🇦';
+        
+        localStorage.setItem('selectedLang', 'en');
+    }
+}
+
+// On Page Load: Previous Language Preference Check
+document.addEventListener("DOMContentLoaded", function () {
+    var savedLang = localStorage.getItem('selectedLang');
+    if (savedLang === 'ar') {
+        setTimeout(function() {
+            switchLanguage();
+        }, 1000); // Small delay to let translation engine load
+    }
+});
+</script>
 
 <script>
 
