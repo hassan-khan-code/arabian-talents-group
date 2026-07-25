@@ -472,6 +472,124 @@
 [dir="rtl"] .marquee-track{
     direction: ltr;
 }
+
+/* =========================================================
+   ARABIC LAYOUT & OVERLAPPING TEXT FIXES
+   ========================================================= */
+
+/* 1. Universal Clean Arabic Font & Proper Spacing */
+[dir="rtl"], 
+[dir="rtl"] body, 
+[dir="rtl"] h1, [dir="rtl"] h2, [dir="rtl"] h3, [dir="rtl"] h4, [dir="rtl"] h5, [dir="rtl"] h6,
+[dir="rtl"] p, [dir="rtl"] span, [dir="rtl"] a, [dir="rtl"] li {
+    font-family: 'Tajawal', 'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+    letter-spacing: 0px !important; /* Arabic script me spacing overlap karti hai */
+    word-spacing: normal !important;
+}
+
+/* 2. Headings Overlap Fix (Hero Section & Section Titles) */
+[dir="rtl"] h1, 
+[dir="rtl"] h2, 
+[dir="rtl"] .hero-title, 
+[dir="rtl"] .section-title {
+    line-height: 1.5 !important; /* Text ek dusre ke upar charhna band ho jayega */
+    margin-bottom: 20px !important;
+    padding-top: 5px;
+}
+
+/* 3. Paragraphs & Description Text Spacing Fix */
+[dir="rtl"] p, 
+[dir="rtl"] .hero-subtitle, 
+[dir="rtl"] .about-description {
+    line-height: 1.8 !important; /* Arabic paragraphs ko saans lene ki jagah milegi */
+    font-size: 1.05rem;
+}
+
+/* 4. Feature Lists & Checkmarks Fix (About & Services Section) */
+[dir="rtl"] .features-list,
+[dir="rtl"] ul,
+[dir="rtl"] .grid {
+    direction: rtl !important;
+    text-align: right !important;
+}
+
+[dir="rtl"] .features-list li,
+[dir="rtl"] .check-item {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    margin-bottom: 12px !important;
+    line-height: 1.4 !important;
+}
+
+/* 5. Footer Alignment & Spacing Fix */
+[dir="rtl"] footer, 
+[dir="rtl"] .footer-content,
+[dir="rtl"] .footer-widgets {
+    text-align: right !important;
+    direction: rtl !important;
+}
+
+[dir="rtl"] .footer-widget h3,
+[dir="rtl"] .footer-widget h4 {
+    margin-bottom: 15px !important;
+    line-height: 1.4 !important;
+}
+
+[dir="rtl"] .footer-links li {
+    margin-bottom: 10px !important;
+    line-height: 1.6 !important;
+}
+
+/* 6. Google Translate Font Injection Override */
+font {
+    background-color: transparent !important;
+    box-shadow: none !important;
+    vertical-align: baseline !important;
+    line-height: inherit !important;
+}
+
+/* =========================================================
+   ARABIC FOOTER SPECIFIC FIXES
+   ========================================================= */
+
+/* 1. Grid Direction & Column Alignment */
+[dir="rtl"] .footer-grid {
+    direction: rtl;
+    text-align: right;
+}
+
+/* 2. Text Alignment for All Footer Elements */
+[dir="rtl"] .footer-about p,
+[dir="rtl"] .footer-col h4,
+[dir="rtl"] .footer-col ul {
+    text-align: right !important;
+}
+
+/* 3. Heading Accent Line Fix (Gold Underline Position) */
+[dir="rtl"] .footer-col h4::after {
+    left: auto !important;
+    right: 0 !important; /* Underline ko right alignment par shift kar diya */
+}
+
+/* 4. Hover Transition Alignment Fix */
+[dir="rtl"] .footer-col ul li a {
+    display: inline-block;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+[dir="rtl"] .footer-col ul li a:hover {
+    padding-left: 0 !important;
+    transform: translateX(-5px); /* Hover par left ki taraf smooth move karega */
+    color: var(--gold-2);
+}
+
+/* 5. Lattice SVG Background Adjustment for RTL */
+[dir="rtl"] .footer-lattice {
+    left: auto !important;
+    right: -80px !important; /* Pattern ko right corner par move kar diya */
+}
+
 </style>
 </head>
 <body>
@@ -895,9 +1013,12 @@
 <!-- FOOTER -->
 <footer>
     <svg class="footer-lattice" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M50 5 L90 27 L90 73 L50 95 L10 73 L10 27 Z M50 5 L50 35 M90 27 L65 42 M90 73 L65 58 M50 95 L50 65 M10 73 L35 58 M10 27 L35 42 M35 42 L65 42 L65 58 L35 58 Z" stroke="#c9a227" stroke-width="0.6" fill="none"/></svg>
-    <div class="footer-grid">
+    <div class="footer-grid">  
         <div class="footer-about footer-col">
-            <h4>Arabian Talents Group</h4>
+             <div class="logo">
+        <img src="assets/logo.png" alt="Arabian Talents Group Logo" onerror="this.style.display='none'">
+        <div class="logo-text">Arabian Talents Group <span>MANPOWER SOLUTIONS</span></div>
+    </div>
             <p data-i18n="foot_about">A trusted manpower recruitment company providing skilled professionals across Saudi Arabia and the Gulf region since over a decade.</p>
         </div>
         <div class="footer-col">
