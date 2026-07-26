@@ -65,7 +65,7 @@
     .burger.open span:nth-child(2){opacity:0;}
     .burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
 
-    /* Mobile controls wrapper (lang button + burger) */
+    /* Mobile controls wrapper */
     .nav-right{display:flex;align-items:center;gap:10px;}
 
     /* ===== HERO ===== */
@@ -206,7 +206,7 @@
     .promo-feature h4{font-size:15px;font-weight:700;color:var(--ink);margin-bottom:4px;}
     .promo-feature p{font-size:13.5px;color:var(--muted);line-height:1.65;}
 
-    /* ===== TEAM (no-photo, avatar initials, horizontal scroll) ===== */
+    /* ===== TEAM  ===== */
     #team{background:var(--sand-2);}
     .team-scroll-wrap{position:relative;margin-top:56px;}
     .team-track{display:flex;gap:24px;overflow-x:auto;scroll-snap-type:x mandatory;padding:10px 6px 28px;scrollbar-width:none;-ms-overflow-style:none;justify-content:flex-start;}
@@ -253,7 +253,7 @@
     .team-nav button:hover svg{stroke:#fff;}
     .team-nav button svg{stroke:var(--ink);transition:stroke .3s;}
 
-/* ===== ULTRA-PREMIUM CLIENTS MARQUEE ===== */
+/* ===== CLIENTS MARQUEE ===== */
 .clients-section {
     background: var(--sand-2);
     overflow: hidden;
@@ -428,7 +428,7 @@
     }
 
 
-/* Google Top Banner Hide Karein (Taake header ka design kharab na ho) */
+/* Google Top Banner  */
 .goog-te-banner-frame, 
 .skiptranslate, 
 #goog-gt-tt {
@@ -457,7 +457,7 @@
     transform: translateY(-2px);
 }
 
-/* RTL Layout Automatic Alignment for Arabic */
+/* RTL Layout  */
 [dir="rtl"] {
     text-align: right;
 }
@@ -467,7 +467,7 @@
     transform: rotate(180deg);
 }
 
-/* Keep marquee always left-to-right regardless of page direction */
+/* Keep marquee always  */
 [dir="rtl"] .marquee,
 [dir="rtl"] .marquee-track{
     direction: ltr;
@@ -477,7 +477,7 @@
    ARABIC LAYOUT & OVERLAPPING TEXT FIXES
    ========================================================= */
 
-/* 1. Universal Clean Arabic Font & Proper Spacing */
+/* 1. Arabic Font & Proper Spacing */
 [dir="rtl"], 
 [dir="rtl"] body, 
 [dir="rtl"] h1, [dir="rtl"] h2, [dir="rtl"] h3, [dir="rtl"] h4, [dir="rtl"] h5, [dir="rtl"] h6,
@@ -487,25 +487,25 @@
     word-spacing: normal !important;
 }
 
-/* 2. Headings Overlap Fix (Hero Section & Section Titles) */
+/* 2. Headings Overlap Fix  */
 [dir="rtl"] h1, 
 [dir="rtl"] h2, 
 [dir="rtl"] .hero-title, 
 [dir="rtl"] .section-title {
-    line-height: 1.5 !important; /* Text ek dusre ke upar charhna band ho jayega */
+    line-height: 1.5 !important; 
     margin-bottom: 20px !important;
     padding-top: 5px;
 }
 
-/* 3. Paragraphs & Description Text Spacing Fix */
+
 [dir="rtl"] p, 
 [dir="rtl"] .hero-subtitle, 
 [dir="rtl"] .about-description {
-    line-height: 1.8 !important; /* Arabic paragraphs ko saans lene ki jagah milegi */
+    line-height: 1.8 !important; 
     font-size: 1.05rem;
 }
 
-/* 4. Feature Lists & Checkmarks Fix (About & Services Section) */
+/* 4. Feature Lists & Checkmarks Fix  */
 [dir="rtl"] .features-list,
 [dir="rtl"] ul,
 [dir="rtl"] .grid {
@@ -553,23 +553,20 @@ font {
    ARABIC FOOTER SPECIFIC FIXES
    ========================================================= */
 
-/* 1. Grid Direction & Column Alignment */
 [dir="rtl"] .footer-grid {
     direction: rtl;
     text-align: right;
 }
 
-/* 2. Text Alignment for All Footer Elements */
 [dir="rtl"] .footer-about p,
 [dir="rtl"] .footer-col h4,
 [dir="rtl"] .footer-col ul {
     text-align: right !important;
 }
 
-/* 3. Heading Accent Line Fix (Gold Underline Position) */
 [dir="rtl"] .footer-col h4::after {
     left: auto !important;
-    right: 0 !important; /* Underline ko right alignment par shift kar diya */
+    right: 0 !important; 
 }
 
 /* 4. Hover Transition Alignment Fix */
@@ -580,14 +577,14 @@ font {
 
 [dir="rtl"] .footer-col ul li a:hover {
     padding-left: 0 !important;
-    transform: translateX(-5px); /* Hover par left ki taraf smooth move karega */
+    transform: translateX(-5px); 
     color: var(--gold-2);
 }
 
 /* 5. Lattice SVG Background Adjustment for RTL */
 [dir="rtl"] .footer-lattice {
     left: auto !important;
-    right: -80px !important; /* Pattern ko right corner par move kar diya */
+    right: -80px !important; 
 }
 
 </style>
@@ -619,7 +616,6 @@ font {
         <li><a href="#contact" class="nav-cta" data-i18n="nav_contact">Contact Us</a></li>
     </ul>
 
-    <!-- Language button + burger stay together, always visible (not inside the sliding mobile menu) -->
     <div class="nav-right">
         <button id="langToggleBtn" onclick="switchLanguage()">
             <span class="lang-flag">🇸🇦</span>
@@ -1138,7 +1134,7 @@ const translations = {
     foot_bottom:{ar:"© 2024 <span>مجموعة المواهب العربية</span>. جميع الحقوق محفوظة. | حلول التوظيف والاستقدام"}
 };
 
-// Store original English text once, up-front, so toggling back is exact
+// Store original English text once, up-front, toggling back
 const i18nEls = document.querySelectorAll('[data-i18n]');
 const i18nHtmlEls = document.querySelectorAll('[data-i18n-html]');
 const i18nPhEls = document.querySelectorAll('[data-i18n-ph]');
@@ -1186,7 +1182,7 @@ function switchLanguage() {
     applyLanguage(isArabic ? 'en' : 'ar');
 }
 
-// On page load: restore previous language instantly, no delay, no external engine needed
+// On page load restore previous language 
 document.addEventListener("DOMContentLoaded", function () {
     const savedLang = localStorage.getItem('selectedLang');
     if (savedLang === 'ar') applyLanguage('ar');
